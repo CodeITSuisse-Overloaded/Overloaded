@@ -11,6 +11,13 @@ import java.util.*;
  * 5. Value for each of `quantity` is within the range of [1, 2^31-1] i.e. fits in Java's positive int <br>
  */
 public final class TickerStream {
+    public static class PartOneInput {
+        public List<String> stream;
+    }
+    public static class PartTwoInput {
+        public List<String> stream;
+        public int quantityBlock;
+    }
 
     private static class Tick {
         int ts;
