@@ -11,11 +11,13 @@ public class MainController {
 
     @PostMapping("/tickerStreamPart1")
     public List<String> tickerStreamPart1(@RequestBody TickerStream.PartOneInput input) {
+        System.out.println(input.stream);
         return TickerStream.toCumulative(input.stream);
     }
 
     @PostMapping("/tickerStreamPart2")
     public List<String> tickerStreamPart2(@RequestBody TickerStream.PartTwoInput input) {
+        System.out.println(input.stream);
         return TickerStream.toCumulativeDelayed(input.stream, input.quantityBlock);
     }
 }
