@@ -14,9 +14,21 @@ public final class TickerStream {
     public static class PartOneInput {
         public List<String> stream;
     }
+    public static class PartOneOutput {
+        public List<String> output;
+        PartOneOutput(List<String> output) {
+            this.output = output;
+        }
+    }
     public static class PartTwoInput {
         public List<String> stream;
         public int quantityBlock;
+    }
+    public static class PartTwoOutput {
+        public List<String> output;
+        PartTwoOutput(List<String> output) {
+            this.output = output;
+        }
     }
 
     private static class Tick {
