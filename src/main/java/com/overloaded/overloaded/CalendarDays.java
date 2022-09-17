@@ -1,0 +1,150 @@
+package com.overloaded.overloaded;
+
+import java.util.*;
+
+public class CalendarDays {
+    static class Input {
+        List<Integer> numbers;
+    }
+    static class Output {
+        String part1;
+        List<Integer> part2;
+        Output(String part1, List<Integer> part2) {
+            this.part1 = part1;
+            this.part2 = part2;
+        }
+    }
+
+    static class MonthRecord {
+        boolean Mon;
+        boolean Tue;
+        boolean Wed;
+        boolean Thu;
+        boolean Fri;
+        boolean Sat;
+        boolean Sun;
+
+        void addDay(int day) {
+            switch (day) {
+                case Calendar.MONDAY -> Mon = true;
+                case Calendar.TUESDAY -> Tue = true;
+                case Calendar.WEDNESDAY -> Wed = true;
+                case Calendar.THURSDAY -> Thu = true;
+                case Calendar.FRIDAY -> Fri = true;
+                case Calendar.SATURDAY -> Sat = true;
+                case Calendar.SUNDAY -> Sun = true;
+            }
+        }
+
+        String genString() {
+            String res;
+            if (Mon && Tue && Wed && Thu && Fri && Sat && Sun) {
+                return "alldays,";
+            } else if (!Mon && !Tue && !Wed && !Thu && !Fri && Sat && Sun) {
+                return "weekend,";
+            } else if (Mon && Tue && Wed && Thu && Fri && !Sat && !Sun) {
+                return "weekday,";
+            } else {
+                res = (Mon ? "m" : " ") +
+                        (Tue ? "t" : " ") +
+                        (Wed ? "w" : " ") +
+                        (Thu ? "t" : " ") +
+                        (Fri ? "f" : " ") +
+                        (Sat ? "s" : " ") +
+                        (Sun ? "s" : " ") +
+                        ",";
+            }
+            return res;
+        }
+    }
+
+    public static String partOne(CalendarDays.Input input) {
+        int year = input.numbers.get(0);
+        List<Integer> days = parseInput(input);
+
+        return calculatePartOne(year, days);
+    }
+
+    public static String calculatePartOne(int year, List<Integer> days) {
+        List<MonthRecord> yearRecord = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+            yearRecord.add(new MonthRecord());
+        }
+
+        for (int day : days) {
+            GregorianCalendar cal = new GregorianCalendar(year, Calendar.JANUARY, 1);
+            cal.set(Calendar.DAY_OF_YEAR, day);
+            int month = cal.get(GregorianCalendar.MONTH);
+            yearRecord.get(month).addDay(cal.get(GregorianCalendar.DAY_OF_WEEK));
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (MonthRecord record : yearRecord) {
+            sb.append(record.genString());
+        }
+        return sb.toString();
+    }
+
+    public static List<Integer> partTwo(String input) {
+        List<Integer> res = new ArrayList<>();
+        int year = 2001 + parseFirstSpace(input);  // `2001` is given from the question
+        res.add(year);
+        String[] monthRequirements = input.split(",");
+        for (int i = 0; i < 12; i++) {
+            buildRes(res, year, i, monthRequirements[i]);
+        }
+        return res;
+    }
+
+    static List<Integer> parseInput(CalendarDays.Input input) {
+        List<Integer> days = new ArrayList<>();
+        for (int i = 1; i < input.numbers.size(); i++) {
+            int num = input.numbers.get(i);
+            if (num > 0 && num < 367) {
+                days.add(num);
+            }
+        }
+        return days;
+    }
+
+    static int parseFirstSpace(String input) {
+        int res = 0;
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == ' ') {
+                res = i;
+            }
+        }
+        return res;
+    }
+    
+    static void buildRes(List<Integer> res, int year, int month, String requirement) {
+        GregorianCalendar cal = new GregorianCalendar(year, month, 1);
+
+        if (requirement.equals("alldays")) {
+            for (int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
+                cal.set(Calendar.DAY_OF_WEEK, i);
+                res.add(cal.get(Calendar.DAY_OF_YEAR));
+            }
+        } else if (requirement.equals("weekend")) {
+            cal.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+            res.add(cal.get(Calendar.DAY_OF_YEAR));
+            cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+            res.add(cal.get(Calendar.DAY_OF_YEAR));
+        } else if (requirement.equals("weekday")) {
+            for (int i = Calendar.MONDAY; i <= Calendar.FRIDAY; i++) {
+                cal.set(Calendar.DAY_OF_WEEK, i);
+                res.add(cal.get(Calendar.DAY_OF_YEAR));
+            }
+        } else {
+            for (int i = 1; i <= requirement.length(); i++) {
+                if (requirement.charAt(i) != ' ') {
+                    int day = i == 7 ? Calendar.SUNDAY : i;
+                    cal.set(Calendar.DAY_OF_WEEK, day);
+                    res.add(cal.get(Calendar.DAY_OF_YEAR));
+                }
+            }
+
+        }
+        
+    }
+}
