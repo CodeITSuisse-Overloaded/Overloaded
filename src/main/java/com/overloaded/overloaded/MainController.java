@@ -3,6 +3,8 @@ package com.overloaded.overloaded;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.overloaded.overloaded.rubriks.Cube;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -81,6 +83,21 @@ public class MainController {
             System.out.println(e.getMessage());
             System.out.println(Arrays.toString(e.getStackTrace()));
             return new ArrayList<>();
+        }
+    }
+
+    @PostMapping(value="/rubiks", consumes = "application/json", produces = "application/json")
+    public Cube.State rubiks(@RequestBody String input) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Cube cube = mapper.readValue(input, Cube.class);
+            cube.parseOps();
+//            System.out.println(cube.toString());
+            return cube.getState();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(Arrays.toString(e.getStackTrace()));
+            return new Cube().getState();
         }
     }
 
