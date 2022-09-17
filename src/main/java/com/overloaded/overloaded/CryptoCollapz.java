@@ -14,9 +14,9 @@ public class CryptoCollapz {
             dp[i] = -1;
         }
         List<List<Integer>> allRes = new ArrayList<>();
-        allRes.add(Arrays.asList(4, 4, 16, 4, 16));
-        allRes.add(Arrays.asList(16, 52, 8, 52, 16));
-        /*
+//        allRes.add(Arrays.asList(4, 4, 16, 4, 16));
+//        allRes.add(Arrays.asList(16, 52, 8, 52, 16));
+
         for (List<Integer> list : input) {
             List<Integer> currRes = new ArrayList<>();
             for (int num : list) {
@@ -46,7 +46,7 @@ public class CryptoCollapz {
             allRes.add(currRes);
         }
 
-         */
+
         return allRes;
     }
 }
