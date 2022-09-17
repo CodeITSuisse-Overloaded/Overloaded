@@ -20,15 +20,15 @@ public class MagicCauldrons {
         }
     }
     public static class Output {
-        @JsonProperty("part1") String part1;
-        @JsonProperty("part2") String part2;
-        @JsonProperty("part3") String part3;
-        @JsonProperty("part4") String part4;
+        @JsonProperty("part1") double part1;
+        @JsonProperty("part2") int part2;
+        @JsonProperty("part3") double part3;
+        @JsonProperty("part4") int part4;
         Output (double part1, int part2, double part3, int part4) {
-            this.part1 = String.format("%.2f", part1);
-            this.part2 = String.valueOf(part2);
-            this.part3 = String.format("%.2f", part3);
-            this.part4 = String.valueOf(part4);
+            this.part1 = part1;
+            this.part2 = part2;
+            this.part3 = part3;
+            this.part4 = part4;
         }
     }
 
