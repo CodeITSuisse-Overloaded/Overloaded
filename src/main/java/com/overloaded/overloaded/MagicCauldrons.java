@@ -20,11 +20,11 @@ public class MagicCauldrons {
         }
     }
     public static class Output {
-        @JsonProperty("part1") PartOneOutput part1;
-        @JsonProperty("part2") PartTwoOutput part2;
-        @JsonProperty("part3") PartThreeOutput part3;
-        @JsonProperty("part4") PartFourOutput part4;
-        Output (PartOneOutput part1, PartTwoOutput part2, PartThreeOutput part3, PartFourOutput part4) {
+        @JsonProperty("part1") String part1;
+        @JsonProperty("part2") int part2;
+        @JsonProperty("part3") String part3;
+        @JsonProperty("part4") int part4;
+        Output (String part1, int part2, String part3, int part4) {
             this.part1 = part1;
             this.part2 = part2;
             this.part3 = part3;
@@ -48,45 +48,21 @@ public class MagicCauldrons {
                     '}';
         }
     }
-    public static class PartOneOutput {
-        public String amount_of_soup;
-        PartOneOutput(String amountOfSoup) {
-            this.amount_of_soup = amountOfSoup;
-        }
-    }
     public static class PartTwoInput {
         public int flow_rate;
         public double amount_of_soup;
         public int row_number;
         public int col_number;
     }
-    public static class PartTwoOutput {
-        public int time;
-        PartTwoOutput(int time) {
-            this.time = time;
-        }
-    }
 
     public static class PartThreeInput extends PartOneInput {}
-    public static class PartThreeOutput extends PartOneOutput {
-          PartThreeOutput(String amountOfSoup) {
-                super(amountOfSoup);
-          }
-    }
 
     public static class PartFourInput extends PartTwoInput {}
-    public static class PartFourOutput extends PartTwoOutput {
-        PartFourOutput(int time) {
-            super(time);
-        }
-    }
 
     public static final int CAULDRON_CAP = 100;
 
-    public static PartOneOutput partOne(PartOneInput input) {
-        return new PartOneOutput(
-                calculatePartOne(input.flow_rate, input.time, input.row_number, input.col_number)
-        );
+    public static String partOne(PartOneInput input) {
+        return calculatePartOne(input.flow_rate, input.time, input.row_number, input.col_number);
     }
 
     static String calculatePartOne(int flowRate, int time, int rowNumber, int columnNumber) {
@@ -106,10 +82,8 @@ public class MagicCauldrons {
         return String.format("%.2f", amt);
     }
 
-    public static PartTwoOutput partTwo(PartTwoInput input) {
-        return new PartTwoOutput(
-                calculatePartTwo(input.flow_rate, input.amount_of_soup, input.row_number, input.col_number)
-        );
+    public static int partTwo(PartTwoInput input) {
+        return calculatePartTwo(input.flow_rate, input.amount_of_soup, input.row_number, input.col_number);
     }
 
     static int calculatePartTwo(int flowRate, double amountOfSoup, int rowNumber, int columnNumber) {
@@ -127,17 +101,13 @@ public class MagicCauldrons {
     }
 
     // TODO: implement partThree
-    public static PartThreeOutput partThree(PartThreeInput input) {
-        return new PartThreeOutput(
-                calculatePartOne(input.flow_rate, input.time, input.row_number, input.col_number)
-        );
+    public static String partThree(PartThreeInput input) {
+        return calculatePartOne(input.flow_rate, input.time, input.row_number, input.col_number);
     }
 
     // TODO: implement partFour
-    public static PartFourOutput partFour(PartFourInput input) {
-        return new PartFourOutput(
-                calculatePartTwo(input.flow_rate, input.amount_of_soup, input.row_number, input.col_number)
-        );
+    public static int partFour(PartFourInput input) {
+        return calculatePartTwo(input.flow_rate, input.amount_of_soup, input.row_number, input.col_number);
     }
 
 }
