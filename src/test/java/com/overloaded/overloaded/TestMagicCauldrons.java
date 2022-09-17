@@ -8,7 +8,7 @@ public class TestMagicCauldrons {
     @Test
     public void testPartOneBasic() {
         Assertions.assertEquals(
-                "20.00",
+                20.00d,
                 MagicCauldrons.calculatePartOne(20, 1, 0, 0)
         );
     }
@@ -16,7 +16,7 @@ public class TestMagicCauldrons {
     @Test
     public void testPartOneBasic2() {
         Assertions.assertEquals(
-                "23.00",
+                23.00d,
                 MagicCauldrons.calculatePartOne(23, 1, 0, 0)
         );
     }
