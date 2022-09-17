@@ -28,16 +28,15 @@ public class MainController {
     @PostMapping("/magiccauldrons")
     public List<MagicCauldrons.Output> magicCauldrons(@RequestBody String jsonArrayInput)
             throws JsonProcessingException {
-        System.out.println(jsonArrayInput);
+//        System.out.println(jsonArrayInput);
         ObjectMapper mapper = new ObjectMapper();
         List<MagicCauldrons.Input> inputList = mapper.readValue(
-                jsonArrayInput, new TypeReference<List<MagicCauldrons.Input>>() { });
+                jsonArrayInput, new TypeReference<List<MagicCauldrons.Input>>() { }
+        );
 
-//        System.out.println(inputList);
 
         List<MagicCauldrons.Output> res = new ArrayList<>();
         for (MagicCauldrons.Input input : inputList) {
-//            System.out.println(input);
             res.add(
                     new MagicCauldrons.Output(
                             MagicCauldrons.partOne(input.part1),
