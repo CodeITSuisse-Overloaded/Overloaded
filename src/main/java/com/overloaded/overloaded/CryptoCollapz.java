@@ -6,15 +6,12 @@ import java.util.List;
 import java.util.Set;
 
 public class CryptoCollapz {
-    private static int[] dp;
-    static  {
-        dp = new int[1000000];
+
+    public static List<List<Integer>> cryptoCollapz(List<List<Integer>> input) {
+        int[] dp = new int[1000000];
         for (int i = 0; i < 1000000; i++) {
             dp[i] = -1;
         }
-    }
-
-    public static List<List<Integer>> cryptoCollapz(List<List<Integer>> input) {
         List<List<Integer>> allRes = new ArrayList<>();
         for (List<Integer> list : input) {
             List<Integer> currRes = new ArrayList<>();
