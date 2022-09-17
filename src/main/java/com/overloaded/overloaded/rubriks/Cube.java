@@ -9,7 +9,7 @@ public class Cube {
     public void parseOps() {
         for (int i = 0; i < ops.length(); i++) {
             boolean isClockwise = ((i + 1) < ops.length() && ops.charAt(i + 1) != 'i') || i + 1 == ops.length();
-            System.out.println("Step: " + ops.charAt(i) + ", clockwise: " + isClockwise);
+//            System.out.println("Step: " + ops.charAt(i) + ", clockwise: " + isClockwise);
             switch (ops.charAt(i)) {
                 case 'U':
                 case 'D':
@@ -27,7 +27,7 @@ public class Cube {
             if (!isClockwise) {
                 i++;
             }
-            System.out.println(state.toString());
+//            System.out.println(state.toString());
         }
     }
 
@@ -115,6 +115,49 @@ public class Cube {
             return b;
         }
 
+        public void rotateFace(int[][] ori, boolean isClockwise) {
+            int[][] res = new int[3][3];
+            if (isClockwise) {
+                for (int i = 0; i < 3 / 2; i++) {
+                    for (int j = i; j < 3 - i - 1; j++)
+                    {
+
+                        // Swap elements of each cycle
+                        // in clockwise direction
+                        int temp = ori[i][j];
+                        ori[i][j] = ori[3 - 1 - j][i];
+                        ori[3 - 1 - j][i] = ori[3 - 1 - i][3 - 1 - j];
+                        ori[3 - 1 - i][3 - 1 - j] = ori[j][3 - 1 - i];
+                        ori[j][3 - 1 - i] = temp;
+                    }
+                }
+            } else if (!isClockwise) {
+                for (int x = 0; x < 3 / 2; x++) {
+                    // Consider elements in group
+                    // of 4 in current square
+                    for (int y = x; y < 3 - x - 1; y++) {
+                        // Store current cell in
+                        // temp variable
+                        int temp = ori[x][y];
+
+                        // Move values from right to top
+                        ori[x][y] = ori[y][3 - 1 - x];
+
+                        // Move values from bottom to right
+                        ori[y][3 - 1 - x]
+                                = ori[3 - 1 - x][3 - 1 - y];
+
+                        // Move values from left to bottom
+                        ori[3 - 1 - x][3 - 1 - y]
+                                = ori[3 - 1 - y][x];
+
+                        // Assign temp to left
+                        ori[3 - 1 - y][x] = temp;
+                    }
+                }
+            }
+        }
+
         public void upDownAction(char face, boolean isClockwise) {
         // affected faces in seq for anticlockwise --> [l->f, f->r, r->b, b->l]
         // up = all top rows affected --> x[0]
@@ -137,6 +180,11 @@ public class Cube {
             f[rowAffected] = cRight[rowAffected];
             l[rowAffected] = cFront[rowAffected];
         }
+        if (face == 'U') {
+            rotateFace(u, isClockwise);
+        } else {
+            rotateFace(d, isClockwise);
+        }
     }
 
         public void leftRightAction(char face, boolean isClockwise) {
@@ -153,7 +201,6 @@ public class Cube {
                     b[i][colAffected] = cUp[i][colAffected];
                     d[i][colAffected] = cBack[i][colAffected];
                     f[i][colAffected] = cDown[i][colAffected];
-                    System.out.println(Arrays.deepToString(cDown));
                 }
             } else if ((face == 'R' && !isClockwise) || (face == 'L' && isClockwise)) {
                 // anticlockwise --> [u->f, f->d, d->b, b->u]
@@ -163,6 +210,11 @@ public class Cube {
                     b[i][colAffected] = cDown[i][colAffected];
                     u[i][colAffected] = cBack[i][colAffected];
                 }
+            }
+            if (face == 'R') {
+                rotateFace(r, isClockwise);
+            } else {
+                rotateFace(l, isClockwise);
             }
         }
 
@@ -189,6 +241,11 @@ public class Cube {
                     u[rowAffected][i] = cRight[rowAffected][i];
                     l[rowAffected][i] = cUp[rowAffected][i];
                 }
+            }
+            if (face == 'F') {
+                rotateFace(f, isClockwise);
+            } else {
+                rotateFace(b, isClockwise);
             }
         }
 
