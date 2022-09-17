@@ -66,10 +66,11 @@ public class MainController {
         return new CalendarDays.Output(part1, part2);
     }
 
-//    @PostMapping(value="/rubiks", consumes = "application/json", produces = "application/json")
-//    public Cube rubiks(@RequestBody Cube cube) {
-//        System.out.println("test");
-//        return new Cube();
-//    }
-
+    @PostMapping(value="/cryptoCollapz", consumes = "application/json", produces = "application/json")
+    public List<List<Integer>> cryptoCollapz(@RequestBody List<List<Integer>> input) {
+        System.out.println(input);
+        List<List<Integer>> res = CryptoCollapz.cryptoCollapz(input);
+        System.out.println(res);
+        return res;
+    }
 }

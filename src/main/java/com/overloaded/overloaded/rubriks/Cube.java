@@ -32,7 +32,7 @@ public class Cube {
         // affected faces for clockwise --> [f->u, u->b, b->d, d->f]
         // rows&cols affected --> x[0][2], x[1][2], x[2][2]
         if (isClockwise) {
-            
+
         }
     }
 }
