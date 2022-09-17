@@ -114,8 +114,8 @@ public class CalendarDays {
         int year = 2001 + parseFirstSpace(input);  // `2001` is given from the question
         res.add(year);
         String[] monthRequirements = input.split(",");
-        for (int i = 0; i < 12; i++) {
-            buildRes(res, year, i, monthRequirements[i]);
+        for (int month = 0; month < 12; month++) {
+            buildRes(res, year, month, monthRequirements[month]);
         }
         return res;
     }
@@ -144,32 +144,57 @@ public class CalendarDays {
     
     static void buildRes(List<Integer> res, int year, int month, String requirement) {
         GregorianCalendar cal = new GregorianCalendar(year, month, 15);
+        int currOrdinal = cal.get(Calendar.DAY_OF_YEAR);
+        int currDay = cal.get(Calendar.DAY_OF_WEEK);
 
         if (requirement.equals("alldays")) {
-            for (int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
-                cal.set(Calendar.DAY_OF_WEEK, i);
-                res.add(cal.get(Calendar.DAY_OF_YEAR));
+            for (int i = 0; i < 7; i++) {
+                res.add(currOrdinal + i);
             }
         } else if (requirement.equals("weekend")) {
-            cal.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-            res.add(cal.get(Calendar.DAY_OF_YEAR));
-            cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-            res.add(cal.get(Calendar.DAY_OF_YEAR));
+            for (int i = 0; i < 7; i++) {
+                if (currDay == Calendar.SATURDAY || currDay == Calendar.SUNDAY) {
+                    res.add(currOrdinal);
+                }
+                currOrdinal++;
+                currDay++;
+                if (currDay > Calendar.SATURDAY) {
+                    currDay = Calendar.SUNDAY;
+                }
+            }
         } else if (requirement.equals("weekday")) {
-            for (int i = Calendar.MONDAY; i <= Calendar.FRIDAY; i++) {
-                cal.set(Calendar.DAY_OF_WEEK, i);
-                res.add(cal.get(Calendar.DAY_OF_YEAR));
+            for (int i = 0; i < 7; i++) {
+                if (currDay != Calendar.SATURDAY && currDay != Calendar.SUNDAY) {
+                    res.add(currOrdinal);
+                }
+                currOrdinal++;
+                currDay++;
+                if (currDay > Calendar.SATURDAY) {
+                    currDay = Calendar.SUNDAY;
+                }
             }
         } else {
             for (int i = 0; i < requirement.length(); i++) {
+//                if (requirement.charAt(i) != ' ') {
+//                    int day = 1 + ((i+1) % 7);
+//                    while (day != currDay) {
+//                        currOrdinal++;
+//                        currDay++;
+//                        if (currDay > Calendar.SATURDAY) {
+//                            currDay = Calendar.SUNDAY;
+//                        }
+//                    }
+//                    res.add(currOrdinal);
+//                }
                 if (requirement.charAt(i) != ' ') {
-                    int day = i + 1 == 7 ? Calendar.SUNDAY : i;
+                    int day = 1 + ((i+1) % 7) ;
                     cal.set(Calendar.DAY_OF_WEEK, day);
                     res.add(cal.get(Calendar.DAY_OF_YEAR));
                 }
             }
 
         }
+        System.out.println(res);
         
     }
 }
