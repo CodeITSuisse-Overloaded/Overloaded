@@ -67,11 +67,19 @@ public class MainController {
     }
 
     @PostMapping(value="/cryptocollapz", consumes = "application/json", produces = "application/json")
-    public List<List<Integer>> cryptoCollapz(@RequestBody List<List<Integer>> input) {
-        System.out.println(input);
-        List<List<Integer>> res = CryptoCollapz.cryptoCollapz(input);
-//        System.out.println(res);
-        return res;
+    public List<List<Integer>> cryptoCollapz(@RequestBody String input) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            List<List<Integer>> inputList = mapper.readValue(
+                    input, new TypeReference<>() { }
+            );
+            System.out.println(inputList);
+            List<List<Integer>> res = CryptoCollapz.cryptoCollapz(inputList);
+            return res;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ArrayList<>();
+        }
     }
 
     @PostMapping(value="/stig/warmup", consumes = "application/json", produces = "application/json")
