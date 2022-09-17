@@ -5,24 +5,25 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class CryptoCollapz {
     public static int DP_THRESHOLD = 1000000;
 
-    public static List<List<Long>> cryptoCollapz(List<List<Long>> input) {
+    public static List<List<Long>> cryptoCollapz(List<List<Integer>> input) {
         long[] dp = new long[DP_THRESHOLD];
         for (int i = 0; i < DP_THRESHOLD; i++) {
             dp[i] = -1;
         }
         List<List<Long>> allRes = new ArrayList<>();
 
-        for (List<Long> list : input) {
+        for (List<Integer> list : input) {
             List<Long> currRes = new ArrayList<>();
-            for (Long num : list) {
+            for (int num : list) {
                 if (dp[Math.toIntExact(num)] > 0) {
                     currRes.add(dp[Math.toIntExact(num)]);
                 } else {
-                    Set<Long> sequence = new HashSet<>();
+                    Set<Long> sequence = new TreeSet<>();
                     long newPrice = num, max = -1;
                     while (sequence.add(newPrice)) {
                         max = Math.max(max, newPrice);
@@ -43,7 +44,6 @@ public class CryptoCollapz {
             }
             allRes.add(currRes);
         }
-
 
         return allRes;
     }
