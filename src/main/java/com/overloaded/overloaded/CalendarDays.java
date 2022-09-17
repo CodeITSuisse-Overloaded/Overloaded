@@ -1,14 +1,17 @@
 package com.overloaded.overloaded;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 public class CalendarDays {
     static class Input {
-        List<Integer> numbers;
+        public List<Integer> numbers;
     }
     static class Output {
-        String part1;
-        List<Integer> part2;
+        public String part1;
+        public List<Integer> part2;
         Output(String part1, List<Integer> part2) {
             this.part1 = part1;
             this.part2 = part2;
@@ -112,13 +115,14 @@ public class CalendarDays {
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) == ' ') {
                 res = i;
+                break;
             }
         }
         return res;
     }
     
     static void buildRes(List<Integer> res, int year, int month, String requirement) {
-        GregorianCalendar cal = new GregorianCalendar(year, month, 1);
+        GregorianCalendar cal = new GregorianCalendar(year, month, 15);
 
         if (requirement.equals("alldays")) {
             for (int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
@@ -136,9 +140,9 @@ public class CalendarDays {
                 res.add(cal.get(Calendar.DAY_OF_YEAR));
             }
         } else {
-            for (int i = 1; i <= requirement.length(); i++) {
+            for (int i = 0; i < requirement.length(); i++) {
                 if (requirement.charAt(i) != ' ') {
-                    int day = i == 7 ? Calendar.SUNDAY : i;
+                    int day = i + 1 == 7 ? Calendar.SUNDAY : i;
                     cal.set(Calendar.DAY_OF_WEEK, day);
                     res.add(cal.get(Calendar.DAY_OF_YEAR));
                 }

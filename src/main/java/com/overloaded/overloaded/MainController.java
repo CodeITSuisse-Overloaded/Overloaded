@@ -56,10 +56,13 @@ public class MainController {
         return TravellingSuisseRobot.solve(input);
     }
 
-    @PostMapping("/calendarDays")
+    @PostMapping(value="/calendarDays", consumes = "application/json", produces = "application/json")
     public CalendarDays.Output calendarDays(@RequestBody CalendarDays.Input input) {
+        System.out.println(input);
         String part1 = CalendarDays.partOne(input);
         List<Integer> part2 = CalendarDays.partTwo(part1);
+        System.out.println(part1);
+        System.out.println(part2);
         return new CalendarDays.Output(part1, part2);
     }
 
