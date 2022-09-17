@@ -97,7 +97,7 @@ public class MagicCauldrons {
 
         double totalSoup = amtPrior + currLevelAmt;
 
-        return (int) (totalSoup / flowRate);
+        return (int) Math.round(totalSoup / flowRate);
     }
 
     // TODO: implement partThree
