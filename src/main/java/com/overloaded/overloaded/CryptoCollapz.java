@@ -38,7 +38,7 @@ public class CryptoCollapz {
 
                     max = Math.max(max, dp[newPrice]);
                     for (int seqNum : sequence) {
-                        if (dp[seqNum] < 0 && seqNum <= num) dp[seqNum] = max;
+                        if (seqNum <= num && dp[seqNum] < 0) dp[seqNum] = max;
                     }
                     currRes.add(max);
                 }
