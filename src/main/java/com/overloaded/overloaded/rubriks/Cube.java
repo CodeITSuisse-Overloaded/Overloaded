@@ -198,8 +198,8 @@ public class Cube {
             if ((face == 'R' && isClockwise) || (face == 'L' && !isClockwise)) {
                 for (int i = 0; i < 3; i++) {
                     u[i][colAffected] = cFront[i][colAffected];
-                    b[i][colAffected] = cUp[i][colAffected];
-                    d[i][colAffected] = cBack[i][colAffected];
+                    b[i][face == 'R' ? 0 : 2] = cUp[i][colAffected];
+                    d[i][colAffected] = cBack[i][face == 'R' ? 0 : 2];
                     f[i][colAffected] = cDown[i][colAffected];
                 }
             } else if ((face == 'R' && !isClockwise) || (face == 'L' && isClockwise)) {
@@ -207,8 +207,8 @@ public class Cube {
                 for (int i = 0; i < 3; i++) {
                     f[i][colAffected] = cUp[i][colAffected];
                     d[i][colAffected] = cFront[i][colAffected];
-                    b[i][colAffected] = cDown[i][colAffected];
-                    u[i][colAffected] = cBack[i][colAffected];
+                    b[i][face == 'R' ? 0 : 2] = cDown[i][colAffected];
+                    u[i][colAffected] = cBack[i][face == 'R' ? 0 : 2];
                 }
             }
             if (face == 'R') {
@@ -228,18 +228,17 @@ public class Cube {
             int[][] cDown = copyArray(d);
             if ((face == 'F' && isClockwise) || (face == 'B' && !isClockwise)) {
                 for (int i = 0; i < 3; i++) {
-                    u[rowAffected][i] = cLeft[rowAffected][i];
-                    r[rowAffected][i] = cUp[rowAffected][i];
-                    d[rowAffected][i] = cRight[rowAffected][i];
-                    l[rowAffected][i] = cDown[rowAffected][i];
+                    u[rowAffected][i] = cLeft[i][rowAffected];
+                    r[i][face == 'F' ? 0 : 2] = cUp[rowAffected][i];
+                    d[face == 'F' ? 0 : 2][i] = cRight[i][face == 'F' ? 0 : 2];
+                    l[i][rowAffected] = cDown[face == 'F' ? 0 : 2][i];
                 }
             } else if ((face == 'F' && !isClockwise) || (face == 'B' && isClockwise)) {
-                // anticlockwise --> [l->d, d->r, r->u, u->l]
                 for (int i = 0; i < 3; i++) {
-                    d[rowAffected][i] = cLeft[rowAffected][i];
-                    r[rowAffected][i] = cDown[rowAffected][i];
-                    u[rowAffected][i] = cRight[rowAffected][i];
-                    l[rowAffected][i] = cUp[rowAffected][i];
+                    d[face == 'F' ? 0 : 2][i] = cLeft[i][rowAffected];
+                    r[i][face == 'F' ? 0 : 2] = cDown[face == 'F' ? 0 : 2][i];
+                    u[rowAffected][i] = cRight[i][face == 'F' ? 0 : 2];
+                    l[i][rowAffected] = cUp[rowAffected][i];
                 }
             }
             if (face == 'F') {
