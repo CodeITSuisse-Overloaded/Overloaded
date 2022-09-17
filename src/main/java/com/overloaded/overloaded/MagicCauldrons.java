@@ -25,9 +25,9 @@ public class MagicCauldrons {
         @JsonProperty("part3") String part3;
         @JsonProperty("part4") String part4;
         Output (double part1, int part2, double part3, int part4) {
-            this.part1 = String.valueOf(part1);
+            this.part1 = String.format("%.2f", part1);
             this.part2 = String.valueOf(part2);
-            this.part3 = String.valueOf(part3);
+            this.part3 = String.format("%.2f", part3);
             this.part4 = String.valueOf(part4);
         }
     }
