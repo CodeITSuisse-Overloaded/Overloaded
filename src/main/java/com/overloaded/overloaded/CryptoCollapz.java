@@ -9,21 +9,21 @@ import java.util.Set;
 public class CryptoCollapz {
     public static int DP_THRESHOLD = 1000000;
 
-    public static List<List<Integer>> cryptoCollapz(List<List<Integer>> input) {
-        int[] dp = new int[DP_THRESHOLD];
+    public static List<List<Long>> cryptoCollapz(List<List<Long>> input) {
+        long[] dp = new long[DP_THRESHOLD];
         for (int i = 0; i < DP_THRESHOLD; i++) {
             dp[i] = -1;
         }
-        List<List<Integer>> allRes = new ArrayList<>();
+        List<List<Long>> allRes = new ArrayList<>();
 
-        for (List<Integer> list : input) {
-            List<Integer> currRes = new ArrayList<>();
-            for (int num : list) {
-                if (dp[num] > 0) {
-                    currRes.add(dp[num]);
+        for (List<Long> list : input) {
+            List<Long> currRes = new ArrayList<>();
+            for (Long num : list) {
+                if (dp[Math.toIntExact(num)] > 0) {
+                    currRes.add(dp[Math.toIntExact(num)]);
                 } else {
-                    Set<Integer> sequence = new HashSet<>();
-                    int newPrice = num, max = -1;
+                    Set<Long> sequence = new HashSet<>();
+                    long newPrice = num, max = -1;
                     while (sequence.add(newPrice)) {
                         max = Math.max(max, newPrice);
                         if (newPrice % 2 == 0) {
@@ -35,8 +35,8 @@ public class CryptoCollapz {
                         }
                     }
 
-                    for (int seqNum : sequence) {
-                        if (seqNum <= num && dp[seqNum] < 0) dp[seqNum] = max;
+                    for (long seqNum : sequence) {
+                        if (seqNum <= num && dp[(int) seqNum] < 0) dp[(int) seqNum] = max;
                     }
                     currRes.add(max);
                 }
