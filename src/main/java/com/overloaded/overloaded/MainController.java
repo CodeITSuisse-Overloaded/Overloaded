@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -66,11 +67,31 @@ public class MainController {
         return new CalendarDays.Output(part1, part2);
     }
 
-    @PostMapping(value="/cryptoCollapz", consumes = "application/json", produces = "application/json")
-    public List<List<Integer>> cryptoCollapz(@RequestBody List<List<Integer>> input) {
-        System.out.println(input);
-        List<List<Integer>> res = CryptoCollapz.cryptoCollapz(input);
-        System.out.println(res);
+    @PostMapping(value="/cryptocollapz", consumes = "application/json", produces = "application/json")
+    public List<List<Long>> cryptoCollapz(@RequestBody String input) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            List<List<Long>> inputList = mapper.readValue(
+                    input, new TypeReference<>() { }
+            );
+//            System.out.println(inputList.get(inputList.size() - 1));
+            List<List<Long>> res = CryptoCollapz.cryptoCollapz(inputList);
+            return res;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(Arrays.toString(e.getStackTrace()));
+            return new ArrayList<>();
+        }
+    }
+
+    @PostMapping(value="/stig/warmup", consumes = "application/json", produces = "application/json")
+    public List<SwissStig.Accuracy> stigWarmup(@RequestBody String jsonArrayInput) throws JsonProcessingException {
+        System.out.println(jsonArrayInput);
+        ObjectMapper mapper = new ObjectMapper();
+        List<SwissStig.Interview> inputList = mapper.readValue(
+                jsonArrayInput, new TypeReference<List<SwissStig.Interview>>() { }
+        );
+        List<SwissStig.Accuracy> res = SwissStig.warmup(inputList);
         return res;
     }
 }
