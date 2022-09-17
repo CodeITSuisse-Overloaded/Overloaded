@@ -7,15 +7,14 @@ import java.util.List;
 import java.util.Set;
 
 public class CryptoCollapz {
+    public static int DP_THRESHOLD = 1000000;
 
     public static List<List<Integer>> cryptoCollapz(List<List<Integer>> input) {
-        int[] dp = new int[50000000];
-        for (int i = 0; i < 50000000; i++) {
+        int[] dp = new int[DP_THRESHOLD];
+        for (int i = 0; i < DP_THRESHOLD; i++) {
             dp[i] = -1;
         }
         List<List<Integer>> allRes = new ArrayList<>();
-//        allRes.add(Arrays.asList(4, 4, 16, 4, 16));
-//        allRes.add(Arrays.asList(16, 52, 8, 52, 16));
 
         for (List<Integer> list : input) {
             List<Integer> currRes = new ArrayList<>();
@@ -25,7 +24,7 @@ public class CryptoCollapz {
                 } else {
                     Set<Integer> sequence = new HashSet<>();
                     int newPrice = num, max = -1;
-                    while (sequence.add(newPrice) && dp[newPrice] < 0) {
+                    while (sequence.add(newPrice)) {
                         max = Math.max(max, newPrice);
                         if (newPrice % 2 == 0) {
                             // even: divide by half
@@ -36,7 +35,6 @@ public class CryptoCollapz {
                         }
                     }
 
-                    max = Math.max(max, dp[newPrice]);
                     for (int seqNum : sequence) {
                         if (seqNum <= num && dp[seqNum] < 0) dp[seqNum] = max;
                     }
