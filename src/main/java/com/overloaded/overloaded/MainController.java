@@ -3,7 +3,6 @@ package com.overloaded.overloaded;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,7 +36,6 @@ public class MainController {
         System.out.println(inputList);
 
         List<MagicCauldrons.Output> res = new ArrayList<>();
-        System.out.println(inputList);
         for (MagicCauldrons.Input input : inputList) {
             System.out.println(input);
             res.add(
