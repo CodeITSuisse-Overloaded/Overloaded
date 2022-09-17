@@ -68,9 +68,9 @@ public class MainController {
 
     @PostMapping(value="/cryptoCollapz", consumes = "application/json", produces = "application/json")
     public List<List<Integer>> cryptoCollapz(@RequestBody List<List<Integer>> input) {
-        System.out.println(input);
+//        System.out.println(input);
         List<List<Integer>> res = CryptoCollapz.cryptoCollapz(input);
-        System.out.println(res);
+//        System.out.println(res);
         return res;
     }
 }
