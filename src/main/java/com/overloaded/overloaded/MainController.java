@@ -33,11 +33,11 @@ public class MainController {
         List<MagicCauldrons.Input> inputList = mapper.readValue(
                 jsonArrayInput, new TypeReference<List<MagicCauldrons.Input>>() { });
 
-        System.out.println(inputList);
+//        System.out.println(inputList);
 
         List<MagicCauldrons.Output> res = new ArrayList<>();
         for (MagicCauldrons.Input input : inputList) {
-            System.out.println(input);
+//            System.out.println(input);
             res.add(
                     new MagicCauldrons.Output(
                             MagicCauldrons.partOne(input.part1),
@@ -50,4 +50,11 @@ public class MainController {
 
         return res;
     }
+
+    @PostMapping(value = "/travelling-suisse-robot", consumes="text/plain")
+    public String travellingSuisseRobot(@RequestBody String input) {
+        System.out.println(input);
+        return TravellingSuisseRobot.solve(input);
+    }
+
 }
