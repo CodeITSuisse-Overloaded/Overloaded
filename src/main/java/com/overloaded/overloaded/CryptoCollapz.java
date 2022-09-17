@@ -9,8 +9,8 @@ import java.util.Set;
 public class CryptoCollapz {
 
     public static List<List<Integer>> cryptoCollapz(List<List<Integer>> input) {
-        int[] dp = new int[1000000000];
-        for (int i = 0; i < 1000000000; i++) {
+        int[] dp = new int[10000000];
+        for (int i = 0; i < 10000000; i++) {
             dp[i] = -1;
         }
         List<List<Integer>> allRes = new ArrayList<>();
