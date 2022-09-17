@@ -20,8 +20,9 @@ public class CryptoCollapz {
                     currRes.add(dp[num]);
                 } else {
                     Set<Integer> sequence = new HashSet<>();
-                    int newPrice = num;
-                    while (sequence.add(newPrice)) {
+                    int newPrice = num, max = -1;
+                    while (sequence.add(newPrice) && dp[newPrice] < 0) {
+                        max = Math.max(max, newPrice);
                         if (newPrice % 2 == 0) {
                             // even: divide by half
                             newPrice /= 2;
@@ -31,12 +32,9 @@ public class CryptoCollapz {
                         }
                     }
 
-                    int max = -1;
-                    for (int n : sequence) {
-                        max = Math.max(max, n);
-                    }
+                    max = Math.max(max, dp[newPrice]);
                     for (int seqNum : sequence) {
-                        if (dp[seqNum] < 0 && seqNum < num) dp[seqNum] = max;
+                        if (dp[seqNum] < 0 && seqNum <= num) dp[seqNum] = max;
                     }
                     currRes.add(max);
                 }
