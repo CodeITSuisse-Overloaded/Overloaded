@@ -73,4 +73,15 @@ public class MainController {
         System.out.println(res);
         return res;
     }
+
+    @PostMapping(value="/stig/warmup", consumes = "application/json", produces = "application/json")
+    public List<SwissStig.Accuracy> stigWarmup(@RequestBody String jsonArrayInput) throws JsonProcessingException {
+        System.out.println(jsonArrayInput);
+        ObjectMapper mapper = new ObjectMapper();
+        List<SwissStig.Interview> inputList = mapper.readValue(
+                jsonArrayInput, new TypeReference<List<SwissStig.Interview>>() { }
+        );
+        List<SwissStig.Accuracy> res = SwissStig.warmup(inputList);
+        return res;
+    }
 }
