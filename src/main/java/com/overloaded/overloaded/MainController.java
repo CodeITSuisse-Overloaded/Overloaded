@@ -50,7 +50,7 @@ public class MainController {
         return res;
     }
 
-    @PostMapping(value = "/travelling-suisse-robot", consumes="text/plain")
+    @PostMapping(value="/travelling-suisse-robot", consumes = "text/plain", produces = "text/plain")
     public String travellingSuisseRobot(@RequestBody String input) {
         System.out.println(input);
         return TravellingSuisseRobot.solve(input);
