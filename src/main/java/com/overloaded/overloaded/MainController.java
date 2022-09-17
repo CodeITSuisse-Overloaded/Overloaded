@@ -73,7 +73,7 @@ public class MainController {
             List<List<Integer>> inputList = mapper.readValue(
                     input, new TypeReference<>() { }
             );
-            System.out.println(inputList);
+//            System.out.println(inputList);
             List<List<Integer>> res = CryptoCollapz.cryptoCollapz(inputList);
             return res;
         } catch (Exception e) {
