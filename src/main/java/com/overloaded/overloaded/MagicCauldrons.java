@@ -20,11 +20,11 @@ public class MagicCauldrons {
         }
     }
     public static class Output {
-        @JsonProperty("part1") String part1;
+        @JsonProperty("part1") double part1;
         @JsonProperty("part2") int part2;
-        @JsonProperty("part3") String part3;
+        @JsonProperty("part3") double part3;
         @JsonProperty("part4") int part4;
-        Output (String part1, int part2, String part3, int part4) {
+        Output (double part1, int part2, double part3, int part4) {
             this.part1 = part1;
             this.part2 = part2;
             this.part3 = part3;
@@ -61,11 +61,11 @@ public class MagicCauldrons {
 
     public static final int CAULDRON_CAP = 100;
 
-    public static String partOne(PartOneInput input) {
+    public static double partOne(PartOneInput input) {
         return calculatePartOne(input.flow_rate, input.time, input.row_number, input.col_number);
     }
 
-    static String calculatePartOne(int flowRate, int time, int rowNumber, int columnNumber) {
+    static double calculatePartOne(int flowRate, int time, int rowNumber, int columnNumber) {
         int totalSoup = flowRate * time;
         double amt = 0d;
         int i = 0;
@@ -79,7 +79,7 @@ public class MagicCauldrons {
                 break;
             }
         }
-        return String.format("%.2f", amt);
+        return Math.round(amt * 100.0) / 100.0d;
     }
 
     public static int partTwo(PartTwoInput input) {
@@ -101,7 +101,7 @@ public class MagicCauldrons {
     }
 
     // TODO: implement partThree
-    public static String partThree(PartThreeInput input) {
+    public static double partThree(PartThreeInput input) {
         return calculatePartOne(input.flow_rate, input.time, input.row_number, input.col_number);
     }
 
