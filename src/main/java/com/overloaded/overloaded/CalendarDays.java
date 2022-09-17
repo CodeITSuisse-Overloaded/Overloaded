@@ -29,13 +29,34 @@ public class CalendarDays {
 
         void addDay(int day) {
             switch (day) {
-                case Calendar.MONDAY -> Mon = true;
-                case Calendar.TUESDAY -> Tue = true;
-                case Calendar.WEDNESDAY -> Wed = true;
-                case Calendar.THURSDAY -> Thu = true;
-                case Calendar.FRIDAY -> Fri = true;
-                case Calendar.SATURDAY -> Sat = true;
-                case Calendar.SUNDAY -> Sun = true;
+            case Calendar.MONDAY:
+                Mon = true;
+                break;
+            case Calendar.TUESDAY:
+                Tue = true;
+                break;
+            case Calendar.WEDNESDAY:
+                Wed = true;
+                break;
+
+            case Calendar.THURSDAY:
+                Thu = true;
+                break;
+
+            case Calendar.FRIDAY:
+                Fri = true;
+                break;
+
+            case Calendar.SATURDAY:
+                Sat = true;
+                break;
+
+            case Calendar.SUNDAY:
+                Sun = true;
+                break;
+
+            default:
+
             }
         }
 
